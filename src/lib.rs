@@ -22,12 +22,6 @@ fn generate_ir<F>(opa: bool, samples: usize, tau: F) -> Vec<f64> where F: Fn(f64
         buf[k] = r;
     }
 
-    /*for k in (h+1)..samples {
-        //let x = - ((samples - k) as f64) * r_n;
-        let r = Complex::new(0., phase(&tau, x*r_n) * 2. * PI).exp();
-        buf[k] = r;
-    }*/
-
     let mut fft = CFft1D::<f64>::with_len(samples);
     fft.backward(buf.as_slice()).iter().map(|x| x.re).collect()
 }
@@ -50,45 +44,7 @@ fn write_wav(path: &str, vec: &[f64]) -> hound::Result<()> {
     writer.finalize()
 }
 
-/*fn help(arg0: &str) -> ! {
-    use std::process::exit;
-    println!("{} output [n] [opa]", arg0);
-    exit(1)
-}
-
-fn main() {
-    use std::env::args;
-
-    let a: Vec<String> = args().collect();
-    if a.len() < 2 {
-        help(&a[0]);
-    } 
-    
-    let mut time = 16;
-    let mut opa = false;
-    let path = &a[1];
-    if a.len() >= 3 {
-        if let Ok(v) = a[2].parse::<u32>() {
-            time = v.max(4).min(20);
-        }
-    }
-
-    if a.len() >= 4 {
-        if let Ok(v) = a[3].parse::<bool>() {
-            opa = v;
-        }
-    }
-
-    let n = 2_usize.pow(time);
-    println!("[-] generating IR of {} samples ({:.3} seconds) at {}; opa: {:?}", n, (n as f64 / SAMPLE_RATE as f64), path, opa);
-    let ir = generate_ir(opa, n, tau::g_tau);
-    println!("[-] okay! now writing wav file");
-    match write_wav(path, ir.as_slice()) {
-        Ok(_) => println!("[-] done!"),
-        Err(e) => println!("[-] error: {:?}", e),
-    }
-}*/
-
+/// TODO DOC
 pub fn gdel_writer<F>(path: &str, power: u32, opa: bool, tau: F) where F: Fn(f64) -> f64 {
     let n = 2_usize.pow(power);
     println!("[-] generating IR of {} samples ({:.3} seconds) at {}; opa: {:?}", n, (n as f64 / SAMPLE_RATE as f64), path, opa);

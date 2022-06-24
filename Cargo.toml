@@ -1,0 +1,13 @@
+[package]
+name = "exp1_gdel"
+version = "0.1.0"
+authors = ["Pificária <mort.fp@gmail.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+hound = "3.4.0"
+quadrature = "0.1.2"
+chfft = "0.3.2"
+num-complex = "0.2.4"

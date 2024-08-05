@@ -51,5 +51,5 @@ fn main() {
 }
 EOF
 
-rustc -o "$TAUEXEC" "$TAUTMP" -L ../../target/release -L ../../target/release/deps/
+rustc -o "$TAUEXEC" "$TAUTMP" -L ../target/release -L ../target/release/deps/
 rm "$TAUTMP"
